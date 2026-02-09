@@ -16,7 +16,9 @@
 <COMMENT>.|\n  ;   /* ignore everything inside comment */
 
      
-    int|float|char|return|double  {printf("Keywords:\t %s\n",yytext);}
+    int|float|char|return|double|if|else|while  {printf("Keywords:\t %s\n",yytext);}
+
+    printf|scanf|cin|cout                      {printf("I/O Identifiers:\t %s\n",yytext);}
 
     [a-zA-Z][a-zA-Z0-9]*    {printf("Identifiers:\t %s\n",yytext);}
 
@@ -26,19 +28,23 @@
 
     -?[0-9]+                {printf("Integer numbers:\t %s\n",yytext);}
 
-    [+\-*/%]                {printf("Arithmetic Operators:\t %s\n",yytext);}
+    "<<"|">>"                {printf(" Stream operators:\t %s\n",yytext);}
+
+    "&&"|"||"    { printf("Logical operators:\t %s\n", yytext); }
 
     "=="|"<="|">="|"!="      {printf("multi character Operators:\t %s\n",yytext);}
 
+    "&"|"|"      { printf("Bitwise Operators:\t %s\n", yytext); }
+
     [=><!]                  {printf("single character Operators:\t %s\n",yytext);}
+
+    [+\-*/%]                {printf("Arithmetic Operators:\t %s\n",yytext);}
 
     [0-9]+[0-9a-zA-Z]+    ;
 
-    [ \n\t]               ;    
+    [ \n\t\r]+               ;    
 
-    [^0-9a-zA-z]          ; 
-
-    .                     ;      
+    .                     { printf("Unknown character:\t %s\n",yytext); }
 
 
 %%
